@@ -18,7 +18,7 @@ const Login = ({ setLoggedIn }) => {
 
   return (
     <div>
-      <h1>Login Page</h1>
+      <h1>Login Page !</h1>
       <form onSubmit={handleLogin}>
         <input
           type="text"
