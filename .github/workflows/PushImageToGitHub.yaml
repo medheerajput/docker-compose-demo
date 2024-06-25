@@ -1,13 +1,17 @@
-name : docker image push on docker hub using github workflows
+name: docker-image-push-on-docker-hub-using-github-workflows
 
-on:push
-  jobs:
-    push_to_repositery:
-      name:   Push Docker image to Docker Hub
-      runs-on: ubuntu-latest
-      steps:
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  push_to_repository:
+    name: Push Docker image to Docker Hub
+    runs-on: ubuntu-latest
+    steps:
       - name: Check out the repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
       
       - name: Login to Docker Hub
         uses: docker/login-action@v2
@@ -16,8 +20,8 @@ on:push
           password: ${{ secrets.DOCKERHUB_TOKEN }}
     
       - name: Build and push Docker image
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v2
         with:
-          context: todo-list/
+          context: .
           push: true
-          tags: medheerajput/docker-pro:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/docker-pro:latest
